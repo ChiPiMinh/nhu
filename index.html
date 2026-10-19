@@ -2,147 +2,290 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>My Love My Gu 💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Huỳnh Đăng Như - Chúc Mừng 20/10 💖</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ff9ebb 50%, #ffc1e3 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-
+        .script-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        /* Hiệu ứng mở thiệp 3D mượt mà */
+        .card-container {
+            perspective: 1500px;
+        }
         .card {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 40px 50px;
-            border-radius: 25px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            animation: float 4s ease-in-out infinite;
-            z-index: 2;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
         }
-
-        h1 {
-            color: #ff4b6e;
-            font-size: 40px;
-            margin-bottom: 10px;
+        .card.open {
+            transform: rotateY(-180deg);
         }
-
-        h2 {
-            color: #ff6f91;
-            margin-bottom: 20px;
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
-
-        p {
-            color: #555;
-            font-size: 18px;
-            line-height: 1.6;
+        .card-back {
+            transform: rotateY(180deg);
         }
-
-        .heart {
+        /* Hiệu ứng trái tim rơi */
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .heart-particle {
             position: fixed;
-            top: -10px;
-            color: #ff4b6e;
-            font-size: 20px;
+            top: -10vh;
+            color: #ff3366;
+            user-select: none;
+            pointer-events: none;
+            z-index: 99;
             animation: fall linear infinite;
         }
-
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        /* Hiệu ứng chuyển động và phóng to cho khung ảnh */
+        .photo-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        .photo-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 25px -5px rgba(255, 105, 135, 0.4);
         }
-
-        .footer {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #888;
+        .photo-card img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* Nút bật nhạc */
-        .music-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #ff4b6e;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: 0.3s;
+        .photo-card:hover img {
+            transform: scale(1.08);
         }
-
-        .music-btn:hover {
-            transform: scale(1.1);
+        /* Thanh cuộn nội dung thư tinh tế */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
         }
-
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #ffe6ee;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #ff8da1;
+            border-radius: 10px;
+        }
     </style>
 </head>
-<body>
+<body class="flex items-center justify-center p-4 sm:p-6">
 
-    <div class="card">
-        <h1>💖 Gửi em người con gái anh yêu 💖</h1>
-        <h2>Hành trình recap lại cho cuối năm</h2>
-        <p>Đọc thư như này mỗi ngày, chắc quá quen thuộc với em òi, hong biết em đọc có thấy chán chưa😆
-        <p>Hôm nay hong biết sao nữa, có mấy lúc anh thấy em khác khác, chắc do em đang mệt với deadline và đau răng</p>
-        <p>Tự nhiên anh thấy em khác như vậy cái anh tự nghĩ là, hong biết ẻm có thấy mình bị nhàm chán hay phiền gì ẻm hong😔</p>
-        <p>Chắc cái cảm nhận của anh nó bị cùi cùi òi á, chớ em vẫn thương anh màaaa😝</p>
-        <p>Thui bỏ qua đó i anh thấy anh cảm nhận lỏ lỏ á, giờ quay lại em nè</p>
-        <p>Răng em hôm nay sao òi, đỡ hơn tí nào hong dạ, nhớ là hong có uống đá nha hong là tối ê răng lên tới nhức đầu á🥲</p>
-        <p>Anh thấy là anh bắt đầu nhớ nhớ em òi đó, mà cũng phải ráng đợi thui, đợi em chạy xong việc rồi thông thả gặp nhau🙆🏼‍♂️</p>
-        <p>Bé nhớ uống nước thường xuyên nè, manifest thứ 6 được gặp emmmm🫰</p> 
-        <p>Chúc em ngủ ngoan ạ, mãi yêu emmmmm💕<br></p>
-        <div class="footer">— Thư Minh gửi Đăng Như 🐶💞🐼 —</div>
-    </div>
-
-    <!-- Nhạc nền -->
-    <audio id="music" loop>
-        <source src="https://files.catbox.moe/djiasa.mp3" type="audio/mp3">
+    <!-- Thẻ Audio chứa nhạc nền -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://files.catbox.moe/djiasa.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Nút bật/tắt nhạc -->
-    <button class="music-btn" onclick="toggleMusic()">🎵 Bật nhạc</button>
+    <!-- Container chứa hiệu ứng trái tim rơi -->
+    <div id="hearts-container"></div>
 
+    <div class="card-container w-full max-w-4xl h-[650px] sm:h-[680px] relative">
+        <div id="mainCard" class="card w-full h-full relative shadow-2xl rounded-3xl cursor-pointer">
+            
+            <!-- BÊN NGOÀI THIỆP -->
+            <div class="card-front bg-gradient-to-br from-pink-400 via-rose-400 to-red-400 rounded-3xl p-8 flex flex-col items-center justify-center text-white border-4 border-white/40 shadow-inner relative overflow-hidden">
+                <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-pink-200/20 rounded-full blur-2xl"></div>
+
+                <div class="absolute top-6 left-6 text-2xl animate-bounce">🌸</div>
+                <div class="absolute top-6 right-6 text-2xl animate-bounce delay-150">🌷</div>
+                <div class="absolute bottom-6 left-8 text-2xl animate-pulse">✨</div>
+                <div class="absolute bottom-6 right-8 text-2xl animate-pulse">💖</div>
+
+                <div class="w-28 h-28 sm:w-36 sm:h-36 bg-white/20 rounded-full flex items-center justify-center mb-6 shadow-lg backdrop-blur-md border border-white/50 animate-pulse">
+                    <i class="fa-solid fa-envelope-open-text text-5xl sm:text-6xl text-white drop-shadow-md"></i>
+                </div>
+
+                <span class="bg-white/30 text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full mb-3 uppercase tracking-wider backdrop-blur-sm border border-white/40">
+                    Thiệp Chúc Mừng 20/10
+                </span>
+
+                <h1 class="script-font text-4xl sm:text-6xl font-bold text-center mb-3 drop-shadow-lg">
+                    Gửi Huỳnh Đăng Như 💖
+                </h1>
+                
+                <p class="text-pink-100 text-sm sm:text-base text-center max-w-md mb-8 px-4 font-light">
+                    Một món quà nhỏ chứa đựng ngập tràn yêu thương gửi đến một nửa tuyệt vời nhất!
+                </p>
+
+                <button onclick="openCard(event)" class="bg-white text-rose-600 font-bold px-8 py-3.5 rounded-full shadow-xl hover:bg-pink-50 transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-3 text-base sm:text-lg border border-pink-100">
+                    <i class="fa-solid fa-gift text-rose-500 animate-spin"></i> Bấm vào đây để mở thiệp
+                </button>
+            </div>
+
+            <!-- BÊN TRONG THIỆP -->
+            <div class="card-back bg-white rounded-3xl p-6 sm:p-7 flex flex-col justify-between border-4 border-pink-200 shadow-2xl overflow-hidden relative">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-pink-100/50 rounded-bl-full pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-pink-100/50 rounded-tr-full pointer-events-none"></div>
+
+                <!-- Tiêu đề bên trong -->
+                <div class="flex items-center justify-between border-b border-pink-100 pb-2.5 z-10">
+                    <div class="flex items-center gap-2">
+                        <span class="text-rose-500 text-xl">🌸</span>
+                        <h2 class="script-font text-3xl sm:text-4xl font-bold text-rose-600">Gửi Huỳnh Đăng Như</h2>
+                    </div>
+                    <button onclick="closeCard(event)" class="text-gray-400 hover:text-rose-500 text-sm font-medium px-3 py-1 rounded-lg bg-pink-50 hover:bg-pink-100 transition">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Đóng thiệp
+                    </button>
+                </div>
+
+                <!-- Nội dung chính: Lời chúc & 6 khung ảnh (3 trên, 3 dưới) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 my-3 overflow-y-auto custom-scroll pr-1 z-10 max-h-[460px] sm:max-h-[480px] items-center">
+                    
+                    <!-- Phần Lời chúc -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-pink-50 to-rose-50 p-4 rounded-2xl border border-pink-200/60 shadow-sm flex flex-col justify-between h-full">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2 text-rose-500 font-semibold text-sm">
+                                <i class="fa-solid fa-heart"></i> Lời chúc 20/10 ngọt ngào dành riêng cho em:
+                            </div>
+                            <p class="text-gray-700 text-xs sm:text-sm leading-relaxed font-normal mb-2">
+                                Chúc em ngày Phụ nữ Việt Nam 20/10 ngập tràn niềm vui, nụ cười luôn nở trên môi và lúc nào cũng xinh đẹp, rạng rỡ như những đóa hoa tươi thắm nhất! 💐
+                            </p>
+                            <p class="text-gray-700 text-xs sm:text-sm leading-relaxed font-normal">
+                                Mong rằng mọi dự định và ước mơ của em trong cuộc sống đều sẽ trở thành hiện thực. Cảm ơn vì sự hiện diện của em luôn mang lại năng lượng tích cực và ấm áp cho mọi người xung quanh. Hãy luôn yêu đời và hạnh phúc nhé! ✨💖
+                            </p>
+                        </div>
+                        <div class="mt-3 text-right">
+                            <span class="script-font text-2xl text-rose-600 font-bold block">Thân thương tặng em!</span>
+                        </div>
+                    </div>
+
+                    <!-- Phần 6 Khung Ảnh (Lưới 2 hàng x 3 cột) -->
+                    <div class="lg:col-span-7 flex flex-col justify-center gap-2.5">
+                        <div class="grid grid-cols-3 gap-2.5">
+                            
+                            <!-- Ảnh 1 (Hàng trên) -->
+                            <div class="photo-card bg-white p-1.5 rounded-xl border-2 border-pink-200 shadow-sm overflow-hidden aspect-square relative group">
+                                <div class="w-full h-full rounded-lg overflow-hidden relative">
+                                    <img src="https://cdn.phototourl.com/member/2026-10-18-5f1e1b52-a51e-46da-b7a1-ad04410dc9d7.jpg" alt="Ảnh 1" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                            <!-- Ảnh 2 (Hàng trên) -->
+                            <div class="photo-card bg-white p-1.5 rounded-xl border-2 border-pink-200 shadow-sm overflow-hidden aspect-square relative group">
+                                <div class="w-full h-full rounded-lg overflow-hidden relative">
+                                    <img src="https://cdn.phototourl.com/member/2026-10-18-7b027bdd-f81e-4deb-a61d-052d98e6123a.jpg" alt="Ảnh 2" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                            <!-- Ảnh 3 (Hàng trên) -->
+                            <div class="photo-card bg-white p-1.5 rounded-xl border-2 border-pink-200 shadow-sm overflow-hidden aspect-square relative group">
+                                <div class="w-full h-full rounded-lg overflow-hidden relative">
+                                    <img src="https://cdn.phototourl.com/member/2026-10-18-f0e8950e-368c-402e-a39d-f2e79fc1d37e.jpg" alt="Ảnh 3" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                            <!-- Ảnh 4 (Hàng dưới) -->
+                            <div class="photo-card bg-white p-1.5 rounded-xl border-2 border-pink-200 shadow-sm overflow-hidden aspect-square relative group">
+                                <div class="w-full h-full rounded-lg overflow-hidden relative">
+                                    <img src="https://cdn.phototourl.com/member/2026-10-19-13c6938c-a54d-4ca8-a848-bb705a43099c.jpg" alt="Ảnh 4" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                            <!-- Ảnh 5 (Hàng dưới) -->
+                            <div class="photo-card bg-white p-1.5 rounded-xl border-2 border-pink-200 shadow-sm overflow-hidden aspect-square relative group">
+                                <div class="w-full h-full rounded-lg overflow-hidden relative">
+                                    <img src="https://cdn.phototourl.com/member/2026-10-19-50acf4a8-5026-42d1-aeb0-b0896a21316b.jpg" alt="Ảnh 5" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                            <!-- Ảnh 6 (Hàng dưới) -->
+                            <div class="photo-card bg-white p-1.5 rounded-xl border-2 border-pink-200 shadow-sm overflow-hidden aspect-square relative group">
+                                <div class="w-full h-full rounded-lg overflow-hidden relative">
+                                    <img src="https://cdn.phototourl.com/member/2026-10-19-6bd9816c-0dd7-4927-b15e-00abb256a7a8.jpg" alt="Ảnh 6" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Footer bên trong -->
+                <div class="text-center pt-2 border-t border-pink-100 text-xs text-rose-400 z-10 flex items-center justify-center gap-1">
+                    <span>Chúc mừng ngày 20/10 tràn ngập yêu thương và hạnh phúc!</span>
+                    <i class="fa-solid fa-heart text-rose-500 animate-pulse"></i>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript xử lý hiệu ứng -->
     <script>
+        function playMusic() {
+            const music = document.getElementById('bg-music');
+            if (music) {
+                music.volume = 0.7;
+                music.play().catch(err => {
+                    console.log("Trình duyệt yêu cầu thêm tương tác:", err);
+                });
+            }
+        }
+
+        function openCard(event) {
+            if (event) event.stopPropagation();
+            playMusic();
+            document.getElementById('mainCard').classList.add('open');
+        }
+
+        function closeCard(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('mainCard').classList.remove('open');
+        }
+
+        document.querySelector('.card-front').addEventListener('click', function(e) {
+            if(e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+                openCard();
+            }
+        });
+
         function createHeart() {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerHTML = "❤";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-            heart.style.fontSize = (16 + Math.random() * 20) + "px";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
+            const heartsContainer = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            
+            const icons = ['<i class="fa-solid fa-heart"></i>', '<i class="fa-solid fa-face-kiss-wink-heart"></i>', '<i class="fa-solid fa-spa"></i>', '🌸', '💖', '✨'];
+            heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 14 + 12;
+            heart.style.fontSize = size + 'px';
+            
+            const duration = Math.random() * 4 + 3;
+            heart.style.animationDuration = duration + 's';
+            heart.style.opacity = Math.random() * 0.7 + 0.3;
+
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
         }
 
         setInterval(createHeart, 300);
-
-        // Điều khiển nhạc
-        const music = document.getElementById("music");
-        const btn = document.querySelector(".music-btn");
-        let isPlaying = false;
-
-        function toggleMusic() {
-            if (!isPlaying) {
-                music.play();
-                btn.innerHTML = "⏸ Tắt nhạc";
-            } else {
-                music.pause();
-                btn.innerHTML = "🎵 Bật nhạc";
-            }
-            isPlaying = !isPlaying;
-        }
     </script>
-
 </body>
 </html>
