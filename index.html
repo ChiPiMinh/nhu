@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Sổ tay💖</title>
+    <!-- Thêm dòng này để hết báo lỗi favicon 404 -->
+    <link rel="shortcut icon" href="#">
 
     <style>
         * {
@@ -565,7 +567,7 @@
 
 
         /* =====================================================
-           TẠO 1000 TRANG
+           TẠO 1000 TRANG VÀ KẾT NỐI ĐỒNG BỘ MỖI TRANG
         ===================================================== */
 
         const book =
@@ -618,6 +620,22 @@
 
             book.appendChild(page);
 
+            // Đồng bộ dữ liệu trực tiếp cho từng trang
+            const content = page.querySelector(".content");
+            const pageRef = db.ref("pages/page_" + i);
+
+            // Đọc dữ liệu từ Firebase về
+            pageRef.on("value", (snapshot) => {
+                const val = snapshot.val();
+                if (val !== null && document.activeElement !== content) {
+                    content.innerHTML = val;
+                }
+            });
+
+            // Lưu dữ liệu lên Firebase khi gõ
+            content.addEventListener("input", function() {
+                pageRef.set(content.innerHTML);
+            });
         }
 
 
@@ -630,11 +648,10 @@
 
 
         let currentPage = 0;
-        let currentRef = null;
 
 
         /* =====================================================
-           HIỂN THỊ TRANG & LẮNG NGHE DỮ LIỆU ĐÚNG TRANG ĐÓ
+           HIỂN THỊ TRANG
         ===================================================== */
 
         function showPage(number) {
@@ -673,41 +690,10 @@
                     " / " +
                     TOTAL_PAGES;
 
-                // Tải dữ liệu Firebase cho trang hiện tại
-                loadFirebaseForPage(number);
-
             }
 
         }
 
-
-        function loadFirebaseForPage(pageNumber) {
-            // Hủy kết nối lắng nghe của trang cũ
-            if (currentRef) {
-                currentRef.off();
-            }
-
-            const activeContent = pages[pageNumber].querySelector(".content");
-            currentRef = db.ref("pages/page_" + pageNumber);
-
-            // Tải dữ liệu từ Firebase về
-            currentRef.on("value", (snapshot) => {
-                const val = snapshot.val();
-                if (val !== null && document.activeElement !== activeContent) {
-                    activeContent.innerHTML = val;
-                }
-            });
-
-            // Gán sự kiện đẩy dữ liệu lên Firebase khi gõ
-            activeContent.oninput = function() {
-                currentRef.set(activeContent.innerHTML);
-            };
-        }
-
-        // Tải dữ liệu mặc định ban đầu nếu không ở bìa
-        if (currentPage > 0) {
-            loadFirebaseForPage(currentPage);
-        }
 
         /* =====================================================
            TRANG TIẾP
