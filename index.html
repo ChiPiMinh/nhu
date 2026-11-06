@@ -682,7 +682,7 @@
 
 
         function loadFirebaseForPage(pageNumber) {
-            // Hủy kết nối của trang cũ để tiết kiệm băng thông
+            // Hủy kết nối lắng nghe của trang cũ
             if (currentRef) {
                 currentRef.off();
             }
@@ -698,12 +698,16 @@
                 }
             });
 
-            // Gán sự kiện lưu khi nhập dữ liệu
+            // Gán sự kiện đẩy dữ liệu lên Firebase khi gõ
             activeContent.oninput = function() {
                 currentRef.set(activeContent.innerHTML);
             };
         }
 
+        // Tải dữ liệu mặc định ban đầu nếu không ở bìa
+        if (currentPage > 0) {
+            loadFirebaseForPage(currentPage);
+        }
 
         /* =====================================================
            TRANG TIẾP
