@@ -84,25 +84,23 @@
             overflow: hidden;
         }
 
-        /* ================= TRANG ================= */
+        /* ================= TRANG & DÒNG KẺ NGANG ================= */
 
         .page {
             position: absolute;
             inset: 0;
 
-            padding:
-                45px
-                65px
-                60px
-                85px;
+            /* Padding-top 41px để dòng chữ đầu tiên hạ đúng chân dòng kẻ */
+            padding: 41px 65px 60px 85px;
 
-            background:
-                repeating-linear-gradient(
-                    to bottom,
-                    #fffaf5 0px,
-                    #fffaf5 31px,
-                    #f3d8dc 32px
-                );
+            /* Dòng kẻ ngang màu hồng nhạt lặp lại mỗi 32px */
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 31px,
+                #f3d8dc 31px,
+                #f3d8dc 32px
+            ), #fffaf5;
 
             display: none;
 
@@ -149,7 +147,7 @@
                     135deg,
                     #ff6f91,
                     #ff9a9e
-                );
+                ) !important;
 
             color: white;
 
@@ -232,18 +230,19 @@
             margin-bottom: 10px;
         }
 
-        /* ================= NỘI DUNG ================= */
+        /* ================= NỘI DUNG VĂN BẢN ================= */
 
         .content {
             width: 100%;
 
-            min-height: 250px;
+            min-height: 320px;
 
             color: #555;
 
             font-size: 18px;
 
-            line-height: 1.75;
+            /* line-height bằng đúng độ rộng lặp của dòng kẻ (32px) */
+            line-height: 32px;
 
             outline: none;
 
@@ -251,7 +250,8 @@
 
             white-space: pre-wrap;
 
-            padding: 5px;
+            padding: 0;
+            margin: 0;
         }
 
         .content:empty::before {
@@ -566,7 +566,7 @@
 
 
         /* =====================================================
-           TẠO 1000 TRANG VÀ KẾT NỐI ĐỒNG BỘ MỖI TRANG
+           TẠO TRANG VÀ KẾT NỐI ĐỒNG BỘ MỖI TRANG
         ===================================================== */
 
         const book =
@@ -600,7 +600,6 @@
                 <div class="page-number">
                     ${i} / ${TOTAL_PAGES}
                 </div>
-
             `;
 
 
@@ -682,15 +681,12 @@
 
 
         /* =====================================================
-           TRANG TIẾP
+           TRANG TIẾP (ĐÃ SỬA LỖI CÚ PHÁP)
         ===================================================== */
 
         function nextPage() {
 
-            if (
-                currentPage <
-                pages.length - 1
-            ) {
+            if (currentPage < pages.length - 1) {
 
                 currentPage++;
 
