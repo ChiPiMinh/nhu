@@ -90,16 +90,16 @@
             position: absolute;
             inset: 0;
 
-            /* Padding-top 41px để dòng chữ đầu tiên hạ đúng chân dòng kẻ */
-            padding: 41px 65px 60px 85px;
+            /* Đã chỉnh padding-top còn 22px để chữ đầu tiên nằm đúng chân dòng kẻ */
+            padding: 22px 65px 60px 85px;
 
-            /* Dòng kẻ ngang màu hồng nhạt lặp lại mỗi 32px */
+            /* Dòng kẻ ngang lặp lại mỗi 18px (vừa vặn cỡ chữ nhỏ) */
             background: repeating-linear-gradient(
                 to bottom,
                 transparent 0px,
-                transparent 31px,
-                #f3d8dc 31px,
-                #f3d8dc 32px
+                transparent 17px,
+                #f3d8dc 17px,
+                #f3d8dc 18px
             ), #fffaf5;
 
             display: none;
@@ -239,10 +239,11 @@
 
             color: #555;
 
-            font-size: 18px;
+            /* Giảm kích thước chữ xuống khoảng một nửa (10px) */
+            font-size: 10px;
 
-            /* line-height bằng đúng độ rộng lặp của dòng kẻ (32px) */
-            line-height: 32px;
+            /* Độ cao dòng kẻ khớp chính xác 18px */
+            line-height: 18px;
 
             outline: none;
 
@@ -401,7 +402,7 @@
 
             .page {
                 padding:
-                    35px
+                    22px
                     30px
                     55px
                     50px;
@@ -420,7 +421,7 @@
             }
 
             .content {
-                font-size: 16px;
+                font-size: 10px;
                 min-height: 260px;
             }
 
@@ -681,7 +682,7 @@
 
 
         /* =====================================================
-           TRANG TIẾP (ĐÃ SỬA LỖI CÚ PHÁP)
+           TRANG TIẾP
         ===================================================== */
 
         function nextPage() {
