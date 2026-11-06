@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sổ tay</title>
+    <title>Sổ tay💖</title>
 
     <style>
         * {
@@ -538,7 +538,31 @@
     </button>
 
 
+    <!-- ================= FIREBASE SDK ================= -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+
     <script>
+
+        /* =====================================================
+           KHỞI TẠO FIREBASE
+        ===================================================== */
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9h9kTm3dWswOAkyeczdPWzUQdNw8riSM",
+            authDomain: "sotay-20e8c.firebaseapp.com",
+            databaseURL: "https://sotay-20e8c-default-rtdb.firebaseio.com",
+            projectId: "sotay-20e8c",
+            storageBucket: "sotay-20e8c.firebasestorage.app",
+            messagingSenderId: "90618795716",
+            appId: "1:90618795716:web:2b047cce89c3e8e10e9b91",
+            measurementId: "G-BCB3W7BH58"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
 
         /* =====================================================
            TẠO 1000 TRANG
@@ -606,10 +630,11 @@
 
 
         let currentPage = 0;
+        let currentRef = null;
 
 
         /* =====================================================
-           HIỂN THỊ TRANG
+           HIỂN THỊ TRANG & LẮNG NGHE DỮ LIỆU ĐÚNG TRANG ĐÓ
         ===================================================== */
 
         function showPage(number) {
@@ -648,8 +673,35 @@
                     " / " +
                     TOTAL_PAGES;
 
+                // Tải dữ liệu Firebase cho trang hiện tại
+                loadFirebaseForPage(number);
+
             }
 
+        }
+
+
+        function loadFirebaseForPage(pageNumber) {
+            // Hủy kết nối của trang cũ để tiết kiệm băng thông
+            if (currentRef) {
+                currentRef.off();
+            }
+
+            const activeContent = pages[pageNumber].querySelector(".content");
+            currentRef = db.ref("pages/page_" + pageNumber);
+
+            // Tải dữ liệu từ Firebase về
+            currentRef.on("value", (snapshot) => {
+                const val = snapshot.val();
+                if (val !== null && document.activeElement !== activeContent) {
+                    activeContent.innerHTML = val;
+                }
+            });
+
+            // Gán sự kiện lưu khi nhập dữ liệu
+            activeContent.oninput = function() {
+                currentRef.set(activeContent.innerHTML);
+            };
         }
 
 
@@ -722,62 +774,6 @@
                     prevPage();
 
                 }
-
-            }
-        );
-
-
-        /* =====================================================
-           TỰ ĐỘNG LƯU NỘI DUNG
-        ===================================================== */
-
-        const contents =
-            document.querySelectorAll(
-                ".content"
-            );
-
-
-        contents.forEach(
-            content => {
-
-                const pageNumber =
-                    content.dataset.page;
-
-
-                /* Lấy nội dung đã lưu */
-
-                const saved =
-                    localStorage.getItem(
-                        "dangnhu-page-" +
-                        pageNumber
-                    );
-
-
-                if (saved) {
-
-                    content.innerHTML =
-                        saved;
-
-                }
-
-
-                /* Tự động lưu khi gõ */
-
-                content.addEventListener(
-                    "input",
-                    function() {
-
-                        localStorage.setItem(
-
-                            "dangnhu-page-" +
-                            pageNumber,
-
-                            content.innerHTML
-
-                        );
-
-                    }
-                );
 
             }
         );
@@ -891,17 +887,6 @@
                 !isPlaying;
 
         }
-        const firebaseConfig = {
-  apiKey: "AIzaSyA9h9kTm3dWswOAkyeczdPWzUQdNw8riSM",
-  authDomain: "sotay-20e8c.firebaseapp.com",
-  databaseURL: "https://sotay-20e8c-default-rtdb.firebaseio.com",
-  projectId: "sotay-20e8c",
-  storageBucket: "sotay-20e8c.firebasestorage.app",
-  messagingSenderId: "90618795716",
-  appId: "1:90618795716:web:2b047cce89c3e8e10e9b91",
-  measurementId: "G-BCB3W7BH58"
-};
-
 
     </script>
 </body>
